@@ -19,6 +19,7 @@ if __name__ == '__main__':
     company_class = "salary-row_companyName__obLh0"
 
     rows = soup.find_all('tr', class_=row_class)
+    records = []
     print(f'Level, Company, Salary')
     for row in rows:
         level = row.find('p', class_=level_class).text
@@ -29,8 +30,18 @@ if __name__ == '__main__':
             
         company = row.find('a', class_=company_class).text if row.find('a', class_=company_class) else 'Unknown'
         
-        #Clean level from multiple spaces and new lines
         level = ' '.join(level.split())
+
+        records.append((level, company, salary))
         print(f'{level}, {company.strip()}, "{salary.strip()}"')
+    
+    stats = {}
+    for r in records:
+        stats[r[1]] = stats.get(r[1], 0) + 1
+    
+    print(f'\n\nStats:')
+    sorted_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)
+    for k, v in sorted_stats:
+        print(f'{k}: {v}')
     
 
