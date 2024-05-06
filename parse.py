@@ -8,7 +8,7 @@ if __name__ == '__main__':
         sys.exit(1) 
 
     file_name = sys.argv[1]
-    with open('main.html', 'r') as file:
+    with open(file_name, 'r') as file:
         html = file.read()
 
     soup = BeautifulSoup(html, 'html.parser')
